@@ -1,8 +1,8 @@
-import { StationInfo } from './app/models/station-info.model';
+import { StationInfo } from '../app/models/station-info.model';
 
 export const mockStations: StationInfo[] = [
     {
-        id: 1,
+        id: 20,
         capacity: 10,
         currentInventory: 5,
         address: '123 Main Street',
@@ -12,7 +12,7 @@ export const mockStations: StationInfo[] = [
         }
     },
     {
-        id: 2,
+        id: 21,
         capacity: 10,
         currentInventory: 5,
         address: '576 Market Street',

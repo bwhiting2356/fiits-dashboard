@@ -1,8 +1,16 @@
 import { stationReducer, initialStationState } from './station.reducer';
-import { FetchStations, FetchStationsSuccess, FetchStationsFailure, ChangeFilterValue } from '../actions/stations.actions';
-import { StationInfo } from '../models/station-info.model';
+import {
+  FetchStations,
+  FetchStationsSuccess,
+  FetchStationsFailure,
+  ChangeFilterValue,
+  SetSelectedStationIndex,
+  FetchEventsSuccess,
+  FetchEventsError
+} from '../actions/stations.actions';
 
-import { mockStations } from '../../mock-stations';
+import { mockStations } from '../../testing/mock-stations';
+import { mockEvents } from 'src/testing/mock-events';
 
 describe('Station Reducer', () => {
   describe('an unknown action', () => {
@@ -51,15 +59,55 @@ describe('Station Reducer', () => {
       });
     });
 
-    it('should change the current filter value', () => {
+    it('should change the current filter value, set the selected station index to undefined', () => {
+      const initialStateWithStationIndex = {
+        ...initialStationState,
+        selectedStationIndex: 42
+      };
+
       const action = new ChangeFilterValue('123 Main Street');
+
+      const result = stationReducer(initialStateWithStationIndex, action);
+
+      expect(result).toEqual({
+        ...initialStationState,
+        filterValue: '123 Main Street',
+        selectedStationIndex: undefined
+      });
+    });
+
+    it('should set the selected station index to the number, set eventsFetching to true', () => {
+      const action = new SetSelectedStationIndex(42);
 
       const result = stationReducer(initialStationState, action);
 
       expect(result).toEqual({
         ...initialStationState,
-        filterValue: '123 Main Street'
+        selectedStationIndex: 42,
+        eventsFetching: true
       });
-    })
-  })
+    });
+
+    it('should save the events', () => {
+      const action = new FetchEventsSuccess(mockEvents);
+
+      const result = stationReducer(initialStationState, action);
+
+      expect(result).toEqual({
+        ...initialStationState,
+        stationEvents: mockEvents
+      });
+    });
+
+    it('should save the error from trying to fetch events', () => {
+      const action = new FetchEventsError('oops');
+
+      const result = stationReducer(initialStationState, action);
+
+      expect(result).toEqual({
+        ...initialStationState,
+        error: 'oops'
+      });
+    });
+  });
 });

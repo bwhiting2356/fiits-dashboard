@@ -4,7 +4,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { hot, cold } from 'jasmine-marbles';
 import { StationEffects } from './station.effects';
 import { FetchStationsFailure, FetchStations, FetchStationsSuccess } from 'src/app/actions/stations.actions';
-import { mockStations } from 'src/mock-stations';
+import { mockStations } from '../testing/mock-stations';
 import { StationService } from 'src/app/station.service';
 
 describe('Station Effects success', () => {

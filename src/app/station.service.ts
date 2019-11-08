@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
-import { StationInfo } from './models/station-info.model';
 import { HttpClient } from '@angular/common/http';
+import { Event } from './models/event.model';
+import { StationInfo } from './models/station-info.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StationService {
 
-  STATION_API_URL = 'https://fiits-backend.herokuapp.com/stations';
+  BACKEND_URL = 'https://fiits-backend.herokuapp.com';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient) { }
 
   fetchAllStation$() {
-    return this.http.get<StationInfo[]>(this.STATION_API_URL);
+    return this.http.get<StationInfo[]>(`${this.BACKEND_URL}/stations`);
+  }
+
+  fetchEventsForStation$(stationId: number) {
+    return this.http.get<Event[]>(`${this.BACKEND_URL}/station-events/${stationId}`);
   }
 }

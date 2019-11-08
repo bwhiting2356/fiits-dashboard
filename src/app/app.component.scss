@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+
+  mat-list {
+    width: 300px;
+    display: inline-block;
+  }
+
+  #chart {
+
+
+  }
+
+}
+
+.station-item {
+  cursor: pointer;
+
+  &:hover, &.selected {
+    background-color: rgba(150, 150, 150, 0.3);
+  }
+}

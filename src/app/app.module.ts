@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { FormsModule } from '@angular/forms';
 
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
     AppComponent
   ],
   imports: [
+    MatProgressSpinnerModule,
     MatIconModule,
     FormsModule,
     MatInputModule,

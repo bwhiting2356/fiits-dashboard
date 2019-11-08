@@ -4,9 +4,9 @@ import { State } from './reducers';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { initialState } from '../app/reducers';
 import { Store } from '@ngrx/store';
-import { FetchStations, ChangeFilterValue } from './actions/stations.actions';
+import { FetchStations, ChangeFilterValue, SetSelectedStationIndex } from './actions/stations.actions';
 import { initialStationState } from './reducers/station.reducer';
-import { mockStations } from 'src/mock-stations';
+import { mockStations } from '../testing/mock-stations';
 import { cold } from 'jasmine-marbles';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -25,6 +26,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
+        MatProgressSpinnerModule,
         MatIconModule,
         FormsModule,
         MatInputModule,
@@ -73,17 +75,27 @@ describe('AppComponent', () => {
     expect(component.stations).toBeObservable(expected);
   });
 
-  it('should dispatch change filter value', () => {
+  it('should dispatch change filter value', (done) => {
     spyOn(store, 'dispatch');
     component.filterChange('123 Main Street');
-    expect(store.dispatch).toHaveBeenCalledWith(new ChangeFilterValue('123 Main Street'));
+    setTimeout(() => {
+      expect(store.dispatch).toHaveBeenCalledWith(new ChangeFilterValue('123 Main Street'));
+      done();
+    }, 150);
+
   });
 
-  // it('should return filtered stations where addresses match the value', () => {
-  //   const originalStations = mockStations;
-  //   const filteredStations = component.filterStations('main', originalStations);
-  //   expect(filteredStations).toEqual(mockStations[0]);
-  // });
+  it('should return filtered stations where addresses match the value', () => {
+    const originalStations = mockStations;
+    const filteredStations = component.filterStations('main', originalStations);
+    expect(filteredStations).toEqual([mockStations[0]]);
+  });
+
+  it('should should dispatch an action to set the station index', () => {
+    spyOn(store, 'dispatch');
+    component.selectStation(42);
+    expect(store.dispatch).toHaveBeenCalledWith(new SetSelectedStationIndex(42));
+  });
 });
 
 
