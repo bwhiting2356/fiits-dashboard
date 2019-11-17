@@ -20,7 +20,12 @@
     </ng-template>
   </mat-list>
   <div id="chart">
-    <div id="results" *ngIf="(eventsFetching | async); else fetching"></div>
+    <div id="results" *ngIf="!(eventsFetching | async); else fetching">
+      <div id="chart" *ngIf="(stationEvents | async).length > 0; else noEvents">
+        <app-chart [events]="stationEvents | async"></app-chart>
+      </div>
+      <ng-template #noEvents>No events for this station</ng-template>
+    </div>
     <ng-template #fetching>
         <mat-spinner></mat-spinner>
     </ng-template>

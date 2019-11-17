@@ -16,6 +16,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ChartsModule } from 'ng2-charts';
+import { ChartComponent } from './chart/chart.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -25,6 +27,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        ChartsModule,
         NoopAnimationsModule,
         MatProgressSpinnerModule,
         MatIconModule,
@@ -35,6 +38,7 @@ describe('AppComponent', () => {
         MatListModule,
       ],
       declarations: [
+        ChartComponent,
         AppComponent
       ],
       providers: [

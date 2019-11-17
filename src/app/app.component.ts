@@ -5,6 +5,7 @@ import { FetchStations, ChangeFilterValue, SetSelectedStationIndex } from './act
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { StationInfo } from './models/station-info.model';
 import { debounceTime, map } from 'rxjs/operators';
+import { Event } from './models/event.model';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,8 @@ export class AppComponent implements OnInit {
   filterValueChanges = new Subject<string>();
   filterValue: Observable<string>;
   selectedIndex: Observable<number>;
+  eventsFetching: Observable<boolean>;
+  stationEvents: Observable<Event[]>;
 
   constructor(private store: Store<State>) {
     this.stations = store.select(state => state.station.stations);
@@ -34,6 +37,9 @@ export class AppComponent implements OnInit {
     ]).pipe(
       map(([value, stations]) => this.filterStations(value, stations))
     );
+
+    this.eventsFetching = store.select(state => state.station.eventsFetching);
+    this.stationEvents = store.select(state => state.station.stationEvents);
   }
 
   filterChange(value: string) {

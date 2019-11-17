@@ -88,25 +88,36 @@ describe('Station Reducer', () => {
       });
     });
 
-    it('should save the events', () => {
+    it('should save the events, set eventsFetching to false', () => {
+      const initialStateWithFetching = {
+        ...initialStationState,
+        eventsFetching: true
+      };
       const action = new FetchEventsSuccess(mockEvents);
 
-      const result = stationReducer(initialStationState, action);
+      const result = stationReducer(initialStateWithFetching, action);
 
       expect(result).toEqual({
         ...initialStationState,
-        stationEvents: mockEvents
+        stationEvents: mockEvents,
+        eventsFetching: false
       });
     });
 
-    it('should save the error from trying to fetch events', () => {
+    it('should save the error from trying to fetch events, set eventsFetching to false', () => {
+      const initialStateWithFetching = {
+        ...initialStationState,
+        eventsFetching: true
+      };
+
       const action = new FetchEventsError('oops');
 
-      const result = stationReducer(initialStationState, action);
+      const result = stationReducer(initialStateWithFetching, action);
 
       expect(result).toEqual({
         ...initialStationState,
-        error: 'oops'
+        error: 'oops',
+        eventsFetching: false
       });
     });
   });

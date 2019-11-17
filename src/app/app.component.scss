@@ -7,8 +7,13 @@
   }
 
   #chart {
+    flex-grow: 1;
+    height: 400px;
+    app-chart {
+      display: block;
+      width: 100%;
 
-
+    }
   }
 
 }

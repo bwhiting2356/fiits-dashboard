@@ -21,7 +21,7 @@ export const initialStationState: StationState = {
   filterValue: '',
   selectedStationIndex: undefined,
   eventsFetching: false,
-  stationEvents: undefined
+  stationEvents: []
 };
 
 export function stationReducer(state = initialStationState, action: StationsActions): StationState {
@@ -35,13 +35,15 @@ export function stationReducer(state = initialStationState, action: StationsActi
     case StationsActionTypes.FetchEventsSuccess:
       return {
         ...state,
-        stationEvents: action.events
+        stationEvents: action.events,
+        eventsFetching: false
       };
 
     case StationsActionTypes.FetchEventsError:
       return {
         ...state,
-        error: action.error
+        error: action.error,
+        eventsFetching: false
       };
     case StationsActionTypes.FetchStations:
       return {
