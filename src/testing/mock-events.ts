@@ -13,4 +13,4 @@ export const mockEvents: Event[] = [
         potentialLowInv: 2,
         potentialHighInv: 1
     }
-]
+];

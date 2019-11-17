@@ -36,7 +36,7 @@ describe('StationService', () => {
     (httpMock: HttpTestingController, stationService: StationService) => {
       stationService.fetchEventsForStation$(1).subscribe(events => {
         expect(events).toEqual(mockEvents);
-      })
+      });
     }
-  ))
+  ));
 });

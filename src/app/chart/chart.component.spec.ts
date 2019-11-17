@@ -58,5 +58,5 @@ describe('ChartComponent', () => {
         label: 'Potential Low Inventory'
       }
     ]);
-  })
+  });
 });

@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+  - "12.13.0"
+branches:
+  only:
+    - master
+before_script:
+  - npm install -g @angular/cli
+before_install:
+  - export TZ=America/Los_Angeles
+script:
+  - npm install
+  - npm run lint
+  - npm run test-headless
+  - npm run build
+deploy:
+  skip_cleanup: true
+  provider: firebase
+  token:
+    secure: $FIREBASE_TOKEN
