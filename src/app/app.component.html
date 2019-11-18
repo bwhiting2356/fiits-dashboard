@@ -5,7 +5,7 @@
           <input matInput type="text" placeholder="Station Address" ngModel (ngModelChange)="filterChange($event)">
         </mat-form-field>
     </mat-list-item>
-    <div *ngIf="(filteredStations | async).length > 0; else placeholder">
+    <div id="station-list" *ngIf="(filteredStations | async).length > 0; else placeholder">
       <div *ngFor="let station of filteredStations | async;">
           <mat-list-item role="listitem" class="station-item" (click)="selectStation(station.id)" [ngClass]="{'selected': (selectedIndex | async) === station.id }">
               <mat-icon>room</mat-icon>
@@ -19,7 +19,7 @@
       <mat-list-item>No stations to show</mat-list-item>
     </ng-template>
   </mat-list>
-  <div id="chart">
+  <div id="chart-container">
     <div id="results" *ngIf="(eventsFetching | async) === false; else fetching">
       <div id="chart" *ngIf="(stationEvents | async).length > 0; else noEvents">
         <app-chart [events]="stationEvents | async"></app-chart>

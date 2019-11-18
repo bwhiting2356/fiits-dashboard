@@ -20,7 +20,6 @@ export class StationService {
   }
 
   fetchEventsForStation$(stationId: number) {
-    return of(mockEvents);
-    // return this.http.get<Event[]>(`${this.BACKEND_URL}/station-events/${stationId}`);
+    return this.http.get<Event[]>(`${this.BACKEND_URL}/station-events/${stationId}`);
   }
 }
