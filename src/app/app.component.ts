@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   selectedIndex: Observable<number>;
   eventsFetching: Observable<boolean>;
   stationEvents: Observable<Event[]>;
+  placeholderText: Observable<string>;
 
   constructor(private store: Store<State>) {
     this.stations = store.select(state => state.station.stations);
@@ -42,6 +43,9 @@ export class AppComponent implements OnInit {
     this.eventsFetching = store.select(state => state.station.eventsFetching);
     this.stationsFetching = store.select(state => state.station.fetching);
     this.stationEvents = store.select(state => state.station.stationEvents);
+
+    this.placeholderText = store.select(state => state.station.selectedStationIndex)
+          .pipe(map(index => index === undefined ? 'Select a station' : 'No events for this station'));
   }
 
   filterChange(value: string) {

@@ -112,7 +112,52 @@ describe('AppComponent', () => {
     });
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('#station-list-container'))).toBeFalsy();
+    expect(fixture.debugElement.query(By.css('#station-spinner'))).toBeTruthy();
   });
+
+  it('should show the station list container and not show the spinner if the stations are not fetching', () => {
+    store.setState({
+      ...initialState,
+      station: {
+        ...initialStationState,
+        fetching: false
+      }
+    });
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('#station-list-container'))).toBeTruthy();
+    expect(fixture.debugElement.query(By.css('#station-spinner'))).toBeFalsy();
+  });
+
+  it('should show \'Select a station\' if no station has been selected', async () => {
+    store.setState({
+      ...initialState,
+      station: {
+        ...initialStationState,
+        selectedStationIndex: undefined
+      }
+    });
+
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('#placeholder-text')).nativeElement.innerText)
+      .toBe('Select a station');
+  });
+
+  it('should show \'No events for this station\' if a station has been selected but there are no events', async () => {
+    store.setState({
+      ...initialState,
+      station: {
+        ...initialStationState,
+        selectedStationIndex: 0,
+        stationEvents: []
+      }
+    });
+
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('#placeholder-text')).nativeElement.innerText)
+      .toBe('No events for this station');
+  });
+
+
 });
 
 
