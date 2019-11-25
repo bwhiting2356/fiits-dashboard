@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
   filterValueChanges = new Subject<string>();
   filterValue: Observable<string>;
   selectedIndex: Observable<number>;
-
   eventsFetching: Observable<boolean>;
   stationEvents: Observable<Event[]>;
 
