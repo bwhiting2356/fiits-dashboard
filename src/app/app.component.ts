@@ -14,6 +14,7 @@ import { Event } from './models/event.model';
 })
 export class AppComponent implements OnInit {
   stations: Observable<StationInfo[]>;
+  stationsFetching: Observable<boolean>;
   filteredStations: Observable<StationInfo[]>;
   filterValueChanges = new Subject<string>();
   filterValue: Observable<string>;
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
     );
 
     this.eventsFetching = store.select(state => state.station.eventsFetching);
+    this.stationsFetching = store.select(state => state.station.fetching);
     this.stationEvents = store.select(state => state.station.stationEvents);
   }
 

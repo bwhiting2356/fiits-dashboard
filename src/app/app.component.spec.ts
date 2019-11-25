@@ -18,6 +18,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ChartsModule } from 'ng2-charts';
 import { ChartComponent } from './chart/chart.component';
+import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -99,6 +100,18 @@ describe('AppComponent', () => {
     spyOn(store, 'dispatch');
     component.selectStation(42);
     expect(store.dispatch).toHaveBeenCalledWith(new SetSelectedStationIndex(42));
+  });
+
+  it('should show the spinner if the stations are fetching', () => {
+    store.setState({
+      ...initialState,
+      station: {
+        ...initialStationState,
+        fetching: true
+      }
+    });
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('#station-list-container'))).toBeFalsy();
   });
 });
 

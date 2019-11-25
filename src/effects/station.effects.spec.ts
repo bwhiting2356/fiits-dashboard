@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { hot, cold } from 'jasmine-marbles';
+import { cold } from 'jasmine-marbles';
 import { StationEffects } from './station.effects';
 import { FetchStationsFailure, FetchStations, FetchStationsSuccess } from 'src/app/actions/stations.actions';
 import { mockStations } from '../testing/mock-stations';
