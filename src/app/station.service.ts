@@ -12,8 +12,7 @@ export class StationService {
 
   BACKEND_URL = 'https://fiits-backend.herokuapp.com';
 
-  constructor(
-    private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   fetchAllStation$() {
     return this.http.get<StationInfo[]>(`${this.BACKEND_URL}/stations`);
