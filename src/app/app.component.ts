@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { State } from './reducers';
 import { FetchStations, ChangeFilterValue, SetSelectedStationIndex } from './actions/stations.actions';
-import { Observable, Subject, combineLatest, of } from 'rxjs';
+import { Observable, Subject, combineLatest } from 'rxjs';
 import { StationInfo } from './models/station-info.model';
 import { debounceTime, map } from 'rxjs/operators';
 import { Event } from './models/event.model';
