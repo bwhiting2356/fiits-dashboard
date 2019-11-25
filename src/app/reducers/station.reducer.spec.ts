@@ -35,10 +35,15 @@ describe('Station Reducer', () => {
       });
     });
 
-    it('should set fetching to false, save the stations', () => {
+    it('should set fetching to false, save the stations, set fetching to false', () => {
+      const initialStateWithFetching = {
+        ...initialStationState,
+        fetching: true,
+      };
+
       const action = new FetchStationsSuccess(mockStations);
 
-      const result = stationReducer(initialStationState, action);
+      const result = stationReducer(initialStateWithFetching, action);
 
       expect(result).toEqual({
         ...initialStationState,

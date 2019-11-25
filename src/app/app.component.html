@@ -1,33 +1,44 @@
 <div class="container">
   <mat-list role="list">
     <mat-list-item>
-        <mat-form-field class="example-form-field">
-          <input matInput type="text" placeholder="Station Address" ngModel (ngModelChange)="filterChange($event)">
-        </mat-form-field>
+      <mat-form-field class="example-form-field">
+        <input matInput type="text" placeholder="Station Address" ngModel (ngModelChange)="filterChange($event)">
+      </mat-form-field>
     </mat-list-item>
-    <div id="station-list" *ngIf="(filteredStations | async).length > 0; else placeholder">
+    <div id="station-list-container" *ngIf='(stationsFetching | async) === false; else stationSpinner'>
+      <div id="station-list" *ngIf="(filteredStations | async).length > 0; else placeholder">
       <div *ngFor="let station of filteredStations | async;">
-          <mat-list-item role="listitem" class="station-item" (click)="selectStation(station.id)" [ngClass]="{'selected': (selectedIndex | async) === station.id }">
-              <mat-icon>room</mat-icon>
-              <h3 mat-line>{{ station.address }}</h3>
-              <p mat-line>{{ station.latLng.lat }}, {{ station.latLng.lng }}</p>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-        </div>
+        <mat-list-item role="listitem" class="station-item" (click)="selectStation(station.id)" [ngClass]="{'selected': (selectedIndex | async) === station.id }">
+          <mat-icon>room</mat-icon>
+          <h3 mat-line>{{ station.address }}</h3>
+          <p mat-line>{{ station.latLng.lat }}, {{ station.latLng.lng }}</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </div>
     </div>
     <ng-template #placeholder>
       <mat-list-item>No stations to show</mat-list-item>
     </ng-template>
+  </div>
+  <ng-template #stationSpinner>
+    <div class="spinner-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+
+
   </mat-list>
   <div id="chart-container">
-    <div id="results" *ngIf="(eventsFetching | async) === false; else fetching">
+    <div id="results" *ngIf="(eventsFetching | async) === false; else eventSpinner">
       <div id="chart" *ngIf="(stationEvents | async).length > 0; else noEvents">
         <app-chart [events]="stationEvents | async"></app-chart>
       </div>
       <ng-template #noEvents>No events for this station</ng-template>
     </div>
-    <ng-template #fetching>
-        <mat-spinner></mat-spinner>
+    <ng-template #eventSpinner>
+        <div class="spinner-container">
+          <mat-spinner mode='indeterminate'></mat-spinner>
+        </div>
     </ng-template>
 
   </div>
