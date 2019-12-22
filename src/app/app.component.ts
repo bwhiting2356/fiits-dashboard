@@ -33,12 +33,13 @@ export class AppComponent implements OnInit {
 
     this.selectedIndex = store.select(state => state.station.selectedStationIndex);
     this.filterValue = store.select(state => state.station.filterValue);
-    this.filteredStations = combineLatest([
-      this.filterValue,
-      this.stations
-    ]).pipe(
-      map(([value, stations]) => this.filterStations(value, stations))
-    );
+    this.filteredStations = this.stations;
+    // this.filteredStations = combineLatest([
+    //   this.filterValue,
+    //   this.stations
+    // ]).pipe(
+    //   map(([value, stations]) => this.filterStations(value, stations))
+    // );
 
     this.eventsFetching = store.select(state => state.station.eventsFetching);
     this.stationsFetching = store.select(state => state.station.fetching);

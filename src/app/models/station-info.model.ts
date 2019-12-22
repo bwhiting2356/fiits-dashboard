@@ -8,5 +8,6 @@ export interface StationInfo {
   capacity: number;
   currentInventory: number;
   address: string;
-  latLng: LatLng;
+  lat: number;
+  lng: number;
 }
