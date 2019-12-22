@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "test-headless": "ng test --watch=false --browsers=ChromeHeadless --codeCoverage=true && cat ./coverage/fiits-dashboard/lcov.info | coveralls",
     "lint": "ng lint",
