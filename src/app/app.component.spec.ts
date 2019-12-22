@@ -91,9 +91,17 @@ describe('AppComponent', () => {
   });
 
   it('should return filtered stations where addresses match the value', () => {
-    const originalStations = mockStations;
-    const filteredStations = component.filterStations('main', originalStations);
-    expect(filteredStations).toEqual([mockStations[0]]);
+    store.setState({
+      ...initialState,
+      station: {
+        ...initialStationState,
+        filterValue: 'main',
+        stations: mockStations
+      }
+    });
+    fixture.detectChanges();
+    const expected = cold('a', { a: [ mockStations[0] ] } );
+    expect(component.filteredStations).toBeObservable(expected);
   });
 
   it('should should dispatch an action to set the station index', () => {
@@ -157,49 +165,4 @@ describe('AppComponent', () => {
       .toBe('No events for this station');
   });
 
-
 });
-
-
-
-
-
-/*
-
-
-
-describe('AddressInputPage', () => {
-  let component: AddressInputPage;
-  let fixture: ComponentFixture<AddressInputPage>;
-  let store: MockStore<State>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ AddressInputPage ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        {
-          provide: AutocompleteService,
-          useValue: {
-            getPlacePredictions$: () => of(mockAutocompleteResults)
-          }
-        },
-        {
-          provide: NavController,
-          useValue: {
-            back: () => {}
-          }
-        },
-        provideMockStore({ initialState })
-      ]
-    })
-    .compileComponents();
-    store = TestBed.get<Store<State>>(Store);
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AddressInputPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-*/

@@ -6,6 +6,7 @@ import { Observable, Subject, combineLatest } from 'rxjs';
 import { StationInfo } from './models/station-info.model';
 import { debounceTime, map } from 'rxjs/operators';
 import { Event } from './models/event.model';
+import { selectStationIndex, selectFilterValue, selectStations, selectFilteredStations } from './reducers/station.reducer';
 
 @Component({
   selector: 'app-root',
@@ -24,22 +25,16 @@ export class AppComponent implements OnInit {
   placeholderText: Observable<string>;
 
   constructor(private store: Store<State>) {
-    this.stations = store.select(state => state.station.stations);
+    this.stations = store.select(selectStations);
     this.filterValueChanges.pipe(
       debounceTime(100),
     ).subscribe(val => {
       this.store.dispatch(new ChangeFilterValue(val));
     });
 
-    this.selectedIndex = store.select(state => state.station.selectedStationIndex);
-    this.filterValue = store.select(state => state.station.filterValue);
-    this.filteredStations = this.stations;
-    // this.filteredStations = combineLatest([
-    //   this.filterValue,
-    //   this.stations
-    // ]).pipe(
-    //   map(([value, stations]) => this.filterStations(value, stations))
-    // );
+    this.selectedIndex = store.select(selectStationIndex);
+    this.filterValue = store.select(selectFilterValue);
+    this.filteredStations = store.select(selectFilteredStations);
 
     this.eventsFetching = store.select(state => state.station.eventsFetching);
     this.stationsFetching = store.select(state => state.station.fetching);
@@ -55,10 +50,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new FetchStations());
-  }
-
-  filterStations(value: string, stations: StationInfo[]) {
-    return stations.filter(station => station.address.toLowerCase().includes(value.toLowerCase()));
   }
 
   selectStation(index: number) {
