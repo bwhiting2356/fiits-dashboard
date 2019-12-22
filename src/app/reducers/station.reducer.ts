@@ -47,17 +47,6 @@ export const selectFilteredStations = createSelector(
   }
 );
 
-/*
-
-    this.filteredStations = combineLatest([
-      this.filterValue,
-      this.stations
-    ]).pipe(
-      map(([value, stations]) => this.filterStations(value, stations))
-    );
-
-*/
-
 export function stationReducer(state = initialStationState, action: StationsActions): StationState {
   switch (action.type) {
     case StationsActionTypes.ChangeFilterValue:
