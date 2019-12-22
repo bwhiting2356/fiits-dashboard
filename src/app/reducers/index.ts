@@ -6,19 +6,19 @@ import {
   MetaReducer
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-import { StationState, stationReducer, stationFeatureKey, initialStationState } from './station.reducer';
+import { StationState, stationReducer, initialStationState } from './station.reducer';
 
 
 export interface State {
-  [stationFeatureKey]: StationState;
+  station: StationState;
 }
 
 export const initialState: State = {
-  [stationFeatureKey]: initialStationState,
+  station: initialStationState,
 };
 
 export const reducers: ActionReducerMap<State> = {
-  [stationFeatureKey]: stationReducer
+  station: stationReducer
 };
 
 

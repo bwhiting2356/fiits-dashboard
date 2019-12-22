@@ -1,8 +1,9 @@
 import { StationInfo } from '../models/station-info.model';
 import { StationsActionTypes, StationsActions } from '../actions/stations.actions';
 import { Event } from '../models/event.model';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { State } from '.';
 
-export const stationFeatureKey = 'station';
 
 export interface StationState {
   stations: StationInfo[];
@@ -23,6 +24,39 @@ export const initialStationState: StationState = {
   eventsFetching: false,
   stationEvents: []
 };
+
+const selectStationFeature = createFeatureSelector<State, StationState>('station');
+
+export const selectStationIndex = createSelector(
+  selectStationFeature,
+  state => state.selectedStationIndex);
+
+export const selectFilterValue = createSelector(
+  selectStationFeature,
+  state => state.filterValue);
+
+export const selectStations = createSelector(
+  selectStationFeature,
+  state => state.stations);
+
+export const selectFilteredStations = createSelector(
+  selectFilterValue,
+  selectStations,
+  (value, stations) => {
+    return stations.filter(station => station.address.toLowerCase().includes(value.toLowerCase()));
+  }
+);
+
+/*
+
+    this.filteredStations = combineLatest([
+      this.filterValue,
+      this.stations
+    ]).pipe(
+      map(([value, stations]) => this.filterStations(value, stations))
+    );
+
+*/
 
 export function stationReducer(state = initialStationState, action: StationsActions): StationState {
   switch (action.type) {
