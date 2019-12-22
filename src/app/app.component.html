@@ -11,7 +11,7 @@
         <mat-list-item role="listitem" class="station-item" (click)="selectStation(station.id)" [ngClass]="{'selected': (selectedIndex | async) === station.id }">
           <mat-icon>room</mat-icon>
           <h3 mat-line>{{ station.address }}</h3>
-          <p mat-line>{{ station.latLng.lat }}, {{ station.latLng.lng }}</p>
+          <p mat-line>{{ station.lat }}, {{ station.lng }}</p>
         </mat-list-item>
         <mat-divider></mat-divider>
       </div>
