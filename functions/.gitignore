@@ -9,3 +9,4 @@ node_modules/
 dist/
 lib/
 firebase-debug.log
+.firebase/
