@@ -36,7 +36,7 @@ import { ChartComponent } from './chart/chart.component';
     HttpClientModule,
     MatCardModule,
     MatListModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
