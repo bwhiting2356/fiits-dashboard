@@ -3,9 +3,6 @@
 const path = require('path');
 const webpack = require('webpack');
 
-console.log(`\npath: ${path.resolve(__dirname, 'src/')}`)
-console.log(`\n`)
-
 module.exports = {
   mode: 'none',
   entry: {
