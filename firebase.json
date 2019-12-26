@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/fiits-dashboard",
+    "public": "dist/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
