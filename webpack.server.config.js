@@ -3,6 +3,9 @@
 const path = require('path');
 const webpack = require('webpack');
 
+console.log(`\npath: ${path.resolve(__dirname, 'src/')}`)
+console.log(`\n`)
+
 module.exports = {
   mode: 'none',
   entry: {
@@ -27,7 +30,13 @@ module.exports = {
   module: {
     noParse: /polyfills-.*\.js/,
     rules: [
-      { test: /\.ts$/, loader: 'ts-loader' },
+      {
+        test: /\.ts$/,
+        loader: 'ts-loader',
+        include: [
+          path.resolve(__dirname, 'src/')
+        ]
+      },
       {
         // Mark files inside `@angular/core` as using SystemJS style dynamic imports.
         // Removing this will cause deprecation warnings to appear.
